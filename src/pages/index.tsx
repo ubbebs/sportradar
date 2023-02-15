@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import Head from 'next/head'
 import { useQuery } from '@tanstack/react-query'
 import Table from 'react-bootstrap/Table'
@@ -9,7 +8,7 @@ import TableRow from '@/features/table/components/TableRow'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Home() {
-  const { data } = useQuery(['e'], async () =>
+  const { data } = useQuery(['seasonschedule'], async () =>
     fetcher<SeasonSchedule>('/api/soccer')
   )
 
@@ -25,7 +24,11 @@ export default function Home() {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>Team Names</th>
+              <th>Match date</th>
+              <th>Stadium name</th>
+              <th>Team Home</th>
+              <th>Team Away</th>
+              <th>Half-time score</th>
               <th>Results</th>
             </tr>
           </thead>
@@ -34,8 +37,11 @@ export default function Home() {
               data.schedules.map((elem) => {
                 return (
                   <TableRow
+                    date={elem.sport_event.start_time}
+                    stadium={elem.sport_event.venue.name}
                     team1={elem.sport_event.competitors[0].name}
                     team2={elem.sport_event.competitors[1].name}
+                    halftime={elem.sport_event_status.period_scores}
                     result={elem.sport_event_status}
                     key={crypto.randomUUID()}
                   />
