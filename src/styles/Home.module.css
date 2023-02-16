@@ -1,6 +1,8 @@
 .main {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
+    flex-direction: column;
     padding: 5rem;
+    gap: 2rem
 }

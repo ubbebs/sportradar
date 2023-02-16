@@ -1,16 +1,27 @@
 import Head from 'next/head'
 import { useQuery } from '@tanstack/react-query'
 import Table from 'react-bootstrap/Table'
+import { useState } from 'react'
 import styles from '@/styles/Home.module.css'
 import fetcher from '@/utils/fetcher'
 import { SeasonSchedule } from '@/types/SeasonSchedule'
 import TableRow from '@/features/table/components/TableRow'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import DropdownMenu from '@/features/table/components/DropdownMenu'
+import { CurrentSeasonType } from '@/types/CurrentSeason'
 
 export default function Home() {
-  const { data } = useQuery(['seasonschedule'], async () =>
-    fetcher<SeasonSchedule>('/api/soccer')
+  const [currentSeason, setCurrentSeason] = useState<CurrentSeasonType>({
+    id: 'sr:season:77453',
+    name: 'Ekstraklasa 20/21',
+  })
+  const { data, isLoading } = useQuery(
+    ['seasonschedule', currentSeason],
+    async () => fetcher<SeasonSchedule>(`/api/season/${currentSeason.id}`)
   )
+  const handleClick = ({ id, name }: CurrentSeasonType) => {
+    setCurrentSeason({ id, name })
+  }
 
   return (
     <>
@@ -21,6 +32,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
+        <DropdownMenu func={handleClick} currentSeason={currentSeason} />
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -33,7 +45,7 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            {data &&
+            {!isLoading && data ? (
               data.schedules.map((elem) => {
                 return (
                   <TableRow
@@ -46,7 +58,12 @@ export default function Home() {
                     key={crypto.randomUUID()}
                   />
                 )
-              })}
+              })
+            ) : (
+              <tr>
+                <td rowSpan={6}>Loading...</td>
+              </tr>
+            )}
           </tbody>
         </Table>
       </main>

@@ -1,6 +1,5 @@
-/* eslint-disable no-nested-ternary */
 import { PeriodScores, SportEventStatus } from '@/types/SportEventStatus'
-import tdClasses from '../utils/tdclasses'
+import tdClasses from '@/features/table/utils/tdClasses'
 
 type TableRowType = {
   date: string
