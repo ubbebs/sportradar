@@ -4,9 +4,8 @@ import Table from 'react-bootstrap/Table'
 import { useState } from 'react'
 import styles from '@/styles/Home.module.css'
 import fetcher from '@/utils/fetcher'
-import { SeasonSchedule } from '@/types/SeasonSchedule'
+import { SeasonScheduleType } from '@/types/SeasonSchedule'
 import TableRow from '@/features/table/components/TableRow'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import DropdownMenu from '@/features/table/components/DropdownMenu'
 import { CurrentSeasonType } from '@/types/CurrentSeason'
 
@@ -17,7 +16,7 @@ export default function Home() {
   })
   const { data, isLoading } = useQuery(
     ['seasonschedule', currentSeason],
-    async () => fetcher<SeasonSchedule>(`/api/season/${currentSeason.id}`)
+    async () => fetcher<SeasonScheduleType>(`/api/season/${currentSeason.id}`)
   )
   const handleClick = ({ id, name }: CurrentSeasonType) => {
     setCurrentSeason({ id, name })
@@ -49,6 +48,7 @@ export default function Home() {
               data.schedules.map((elem) => {
                 return (
                   <TableRow
+                    id={elem.sport_event.id}
                     date={elem.sport_event.start_time}
                     stadium={elem.sport_event.venue.name}
                     team1={elem.sport_event.competitors[0].name}
@@ -61,7 +61,9 @@ export default function Home() {
               })
             ) : (
               <tr>
-                <td rowSpan={6}>Loading...</td>
+                <td colSpan={6} className="text-center">
+                  Loading...
+                </td>
               </tr>
             )}
           </tbody>

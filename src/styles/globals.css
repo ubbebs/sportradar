@@ -9,3 +9,15 @@ html, body {
 .bg-orange {
   background-color: var(--bs-orange)!important;
 }
+
+.bg-gray {
+  background-color: rgba(200,200,205)!important;
+}
+
+.left {
+  left: -35px;
+}
+
+.right {
+  right: -35px;
+}
