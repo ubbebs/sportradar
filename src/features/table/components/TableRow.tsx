@@ -1,7 +1,7 @@
-import { useRouter } from 'next/router'
 import tdClasses from '@/features/table/utils/tdClasses'
-import { PeriodScoresType, SportEventStatusType } from '@/types/SeasonSchedule'
+import { SportEventStatusType } from '@/types/SeasonSchedule'
 import dateParse from '@/utils/dateParse'
+import useTableRow from '@/hooks/useTableRow'
 
 type TableRowType = {
   id: string
@@ -9,7 +9,6 @@ type TableRowType = {
   stadium: string
   team1: string
   team2: string
-  halftime: PeriodScoresType[]
   result: SportEventStatusType
 }
 
@@ -19,22 +18,23 @@ export default function TableRow({
   stadium,
   team1,
   team2,
-  halftime,
   result,
 }: TableRowType) {
-  const router = useRouter()
-  const redirect = () => {
-    router.push(`match/${id}`)
-  }
+  const { redirect, classes } = useTableRow(id, result)
+
   return (
     <tr onClick={redirect} style={{ cursor: 'pointer' }}>
       <td>{dateParse(date)}</td>
       <td>{stadium}</td>
-      <td className={tdClasses(result)[0]}>{team1}</td>
-      <td className={tdClasses(result)[1]}>{team2}</td>
+      <td className={classes[0]} data-testid="team1">
+        {team1}
+      </td>
+      <td className={classes[1]} data-testid="team2">
+        {team2}
+      </td>
       <td>
-        {halftime
-          ? `${halftime[0].home_score} : ${halftime[0].away_score}`
+        {result.period_scores
+          ? `${result.period_scores[0].home_score} : ${result.period_scores[0].away_score}`
           : 'Postponed'}
       </td>
       <td>

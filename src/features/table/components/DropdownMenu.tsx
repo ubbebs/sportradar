@@ -1,8 +1,7 @@
-import { useQuery } from '@tanstack/react-query'
 import { Dropdown } from 'react-bootstrap'
-import { Seasons } from '@/types/Seasons'
-import fetcher from '@/utils/fetcher'
+import { v4 as uuidv4 } from 'uuid'
 import { CurrentSeasonType } from '@/types/CurrentSeason'
+import useGetSeasonsData from '@/services/useGetSeasonsData'
 
 type DropdownMenuType = {
   func: ({ id, name }: CurrentSeasonType) => void
@@ -13,9 +12,7 @@ export default function DropdownMenu({
   func,
   currentSeason,
 }: DropdownMenuType) {
-  const { data, isLoading } = useQuery(['seasons'], async () =>
-    fetcher<Seasons>('/api/seasons')
-  )
+  const { data, isLoading } = useGetSeasonsData()
 
   return (
     <Dropdown>
@@ -27,7 +24,7 @@ export default function DropdownMenu({
           data.seasons.map((elem) => {
             return (
               <Dropdown.Item
-                key={crypto.randomUUID()}
+                key={uuidv4()}
                 onClick={() => func({ id: elem.id, name: elem.name })}
               >
                 {elem.name}

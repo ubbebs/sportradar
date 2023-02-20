@@ -1,0 +1,110 @@
+{
+    "sport_event": {
+        "id": "sr:sport_event:22974395",
+        "start_time": "2020-12-06T14:00:00+00:00",
+        "start_time_confirmed": true,
+        "sport_event_context": {
+            "sport": {
+                "id": "sr:sport:1",
+                "name": "Soccer"
+            },
+            "category": {
+                "id": "sr:category:47",
+                "name": "Poland",
+                "country_code": "POL"
+            },
+            "competition": {
+                "id": "sr:competition:202",
+                "name": "Ekstraklasa",
+                "gender": "men"
+            },
+            "season": {
+                "id": "sr:season:77453",
+                "name": "Ekstraklasa 20/21",
+                "start_date": "2020-08-21",
+                "end_date": "2021-05-16",
+                "year": "20/21",
+                "competition_id": "sr:competition:202"
+            },
+            "stage": {
+                "order": 1,
+                "type": "league",
+                "phase": "regular season",
+                "start_date": "2020-08-21",
+                "end_date": "2021-05-16",
+                "year": "20/21"
+            },
+            "round": {
+                "number": 12
+            },
+            "groups": [
+                {
+                    "id": "sr:league:50999",
+                    "name": "Ekstraklasa 20/21"
+                }
+            ]
+        },
+        "coverage": {
+            "type": "sport_event",
+            "sport_event_properties": {
+                "lineups": true,
+                "venue": true,
+                "extended_player_stats": false,
+                "extended_team_stats": false,
+                "basic_play_by_play": true,
+                "basic_player_stats": true,
+                "basic_team_stats": true
+            }
+        },
+        "competitors": [
+            {
+                "id": "sr:competitor:7918",
+                "name": "GKS Piast Gliwice",
+                "country": "Poland",
+                "country_code": "POL",
+                "abbreviation": "PGL",
+                "qualifier": "home",
+                "gender": "male"
+            },
+            {
+                "id": "sr:competitor:3113",
+                "name": "Zaglebie Lubin",
+                "country": "Poland",
+                "country_code": "POL",
+                "abbreviation": "ZAG",
+                "qualifier": "away",
+                "gender": "male"
+            }
+        ],
+        "venue": {
+            "id": "sr:venue:9537",
+            "name": "Stadion Miejski w Gliwicach",
+            "capacity": 10037,
+            "city_name": "Gliwice",
+            "country_name": "Poland",
+            "country_code": "POL",
+            "timezone": "Europe/Warsaw"
+        }
+    },
+    "sport_event_status": {
+        "status": "closed",
+        "match_status": "ended",
+        "home_score": 1,
+        "away_score": 7,
+        "period_scores": [
+            {
+                "home_score": 0,
+                "away_score": 5,
+                "type": "regular_period",
+                "number": 1
+            },
+            {
+                "home_score": 1,
+                "away_score": 2,
+                "type": "regular_period",
+                "number": 2
+            }
+        ],
+        "match_tie": false
+    }
+}

@@ -1,6 +1,6 @@
-import { SportEventStatus } from '@/types/SportEventStatus'
+import { SportEventStatusType } from '@/types/SeasonSchedule'
 
-export default function tdClasses(result: SportEventStatus) {
+export default function tdClasses(result: SportEventStatusType) {
   if (result.match_tie) return ['bg-orange text-white', 'bg-orange text-white']
   if (result.match_status === 'postponed')
     return ['bg-transparent', 'bg-transparent']

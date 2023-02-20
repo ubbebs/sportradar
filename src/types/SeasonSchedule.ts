@@ -12,7 +12,7 @@ export type SportEventStatusType = {
   match_tie: boolean
   period_scores: PeriodScoresType[]
   status: string
-  winner_id: string
+  winner_id?: string
 }
 
 export type CompetitorType = {

@@ -1,26 +1,15 @@
 import Head from 'next/head'
-import { useQuery } from '@tanstack/react-query'
 import Table from 'react-bootstrap/Table'
-import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import styles from '@/styles/Home.module.css'
-import fetcher from '@/utils/fetcher'
-import { SeasonScheduleType } from '@/types/SeasonSchedule'
 import TableRow from '@/features/table/components/TableRow'
 import DropdownMenu from '@/features/table/components/DropdownMenu'
-import { CurrentSeasonType } from '@/types/CurrentSeason'
+import useIndex from '@/hooks/useIndex'
 
 export default function Home() {
-  const [currentSeason, setCurrentSeason] = useState<CurrentSeasonType>({
-    id: 'sr:season:77453',
-    name: 'Ekstraklasa 20/21',
-  })
-  const { data, isLoading } = useQuery(
-    ['seasonschedule', currentSeason],
-    async () => fetcher<SeasonScheduleType>(`/api/season/${currentSeason.id}`)
-  )
-  const handleClick = ({ id, name }: CurrentSeasonType) => {
-    setCurrentSeason({ id, name })
-  }
+  const { currentSeason, handleClick, data, isLoading } = useIndex()
+
+  console.log(data)
 
   return (
     <>
@@ -53,9 +42,8 @@ export default function Home() {
                     stadium={elem.sport_event.venue.name}
                     team1={elem.sport_event.competitors[0].name}
                     team2={elem.sport_event.competitors[1].name}
-                    halftime={elem.sport_event_status.period_scores}
                     result={elem.sport_event_status}
-                    key={crypto.randomUUID()}
+                    key={uuidv4()}
                   />
                 )
               })
